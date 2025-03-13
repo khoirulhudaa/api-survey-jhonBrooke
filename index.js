@@ -49,6 +49,20 @@ app.post('/api/submit', async (req, res) => {
   }
 });
 
+app.get('/api/questions', (req, res) => {
+    res.json(SUS_QUESTIONS.map((q, i) => ({ id: i, text: q })));
+});
+  
+// Get semua data survei
+app.get('/api/surveys', async (req, res) => {
+try {
+    const surveys = await Survey.find(); // Ambil semua dokumen dari koleksi Survey
+    res.status(200).json(surveys);
+} catch (error) {
+    res.status(500).json({ error: error.message });
+}
+});
+
 // Get semua pertanyaan
 app.get('/api/questions', (req, res) => {
   res.json(SUS_QUESTIONS.map((q, i) => ({ id: i, text: q })));
